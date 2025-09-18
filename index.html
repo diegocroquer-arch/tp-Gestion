@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Gestion de Usuarios</h1>
+    <button id="load-users" class="button">Cargar Usuarios</button>
+    <hr />
+    <div class="cards"></div>
+
+    <!---  modal   -->
+    <div class="window-notice" id="window-notice">
+      <div class="content">
+        <div class="content-text">
+          <div class="titel-modal">Crear un Nuevo Usuario</div>
+          <form action="">
+            <label for="">
+              <legend>Nombre del Usuario *</legend>
+              <input
+                class="name-trip"
+                type="text"
+                name=""
+                id="name-trip-input"
+                placeholder="Pepe Perez"
+              />
+            </label>
+          </form>
+        </div>
+        <div class="content-buttons">
+          <a class="cancel-button" id="close" href="#">Cancelar</a>
+          <a class="create-button" id="create-button" href="#">Crear Usuario</a>
+        </div>
+      </div>
+    </div>
+    <!---  modal   -->
+
+    <script src="script.js"></script>
+  </body>
+</html>

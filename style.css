@@ -1,0 +1,154 @@
+body {
+  background-color: rgb(155, 54, 238);
+}
+h1 {
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 15px;
+}
+
+.button,
+.edit-button,
+.delete-button {
+  background-color: rgb(131, 43, 203);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover,
+.edit-button:hover,
+.delete-button:hover {
+  background-color: rgb(120, 40, 200);
+}
+
+/* modal */
+.window-notice {
+  background: rgba(33, 41, 52, 0.85);
+  left: 0;
+  bottom: 0;
+  right: 0;
+  top: 0;
+  display: none;
+  position: fixed;
+  z-index: 999;
+  font-family: Hind;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+}
+
+.titel-modal {
+  font-family: Cardo;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 25px;
+  line-height: 150%;
+  letter-spacing: 0.15px;
+  text-align: left;
+  margin-bottom: 32px;
+  width: 213;
+  height: 38;
+  opacity: 1;
+}
+
+.window-notice .content {
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(33, 41, 52, 0.75);
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 600px;
+  min-width: 320px !important;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 2rem;
+  font-size: 1.3rem;
+}
+legend {
+  margin-bottom: 8px;
+  width: 557;
+  height: 20;
+  opacity: 1;
+}
+.name-trip {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  margin-bottom: 32px;
+  width: 533;
+  height: 20;
+  opacity: 1;
+}
+
+.cancel-button {
+  border: 1px solid #bdbdbd;
+  border-radius: 2px;
+  color: #000000;
+  text-decoration: none;
+  text-align: center;
+  font-family: Hind;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.create-button {
+  background: #e2ee33;
+  border-radius: 2px;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Hind;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  padding: 10px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.content-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 32px;
+}
+
+/* modal */
