@@ -30,7 +30,7 @@ fetch(user)
         const newEmail = prompt("Nuevo email:", element.email);
         if (newName && newEmail) {
           fetch(`${user}/${element.id}`, {
-            method: "PUT", // o PATCH
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
