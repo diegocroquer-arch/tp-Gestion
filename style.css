@@ -129,7 +129,8 @@ legend {
 }
 
 .create-button {
-  background: #e2ee33;
+  color: #ffffff;
+  background: #8357cb;
   border-radius: 2px;
   color: #000000;
   cursor: pointer;

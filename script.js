@@ -1,66 +1,5 @@
-const user = "https://64fb193acb9c00518f7aa434.mockapi.io/api/v1/userList";
+const userList = "https://64fb193acb9c00518f7aa434.mockapi.io/api/v1/userList";
 const cards = document.querySelector(".cards");
-
-fetch(user)
-  .then((response) => response.json())
-  .then((data) => {
-    data.forEach((element) => {
-      const card = document.createElement("div");
-      card.classList.add("card");
-      card.dataset.id = element.id;
-      card.innerHTML = `
-        <h2>${element.name}</h2>
-        <p>Email: ${element.email}</p>
-        <p>id: ${element.id}</p>
-      `;
-
-      const buttons = document.createElement("div");
-      buttons.innerHTML = `
-        <button class="edit button">Editar</button>
-        <button class="delete button">Eliminar</button>
-      `;
-      card.appendChild(buttons);
-      cards.appendChild(card);
-
-      const editButtons = document.querySelectorAll(".edit-button");
-      const deleteButtons = document.querySelectorAll(".delete-button");
-
-      buttons.querySelector(".edit").addEventListener("click", () => {
-        const newName = prompt("Nuevo nombre:", element.name);
-        const newEmail = prompt("Nuevo email:", element.email);
-        if (newName && newEmail) {
-          fetch(`${user}/${element.id}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name: newName, email: newEmail }),
-          })
-            .then((res) => res.json())
-            .then((updated) => {
-              card.querySelector("h2").textContent = updated.name;
-              card.querySelector("p").textContent = `Email: ${updated.email}`;
-              console.log("Usuario actualizado:", updated);
-            });
-        }
-      });
-
-      buttons.querySelector(".delete").addEventListener("click", () => {
-        if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
-          fetch(`${user}/${element.id}`, {
-            method: "DELETE",
-          }).then((res) => {
-            if (res.ok) {
-              card.remove();
-              console.log("Usuario eliminado");
-            } else {
-              console.error("Error al eliminar el usuario");
-            }
-          });
-        }
-      });
-    });
-  });
 
 //abrir modal//
 let create = document.getElementById("load-users");
@@ -77,3 +16,101 @@ close_create.addEventListener("click", function (e) {
   document.getElementById("window-notice .content").style.display = "none";
 });
 //cerrar modal//
+
+function deleteUser(id) {
+  fetch(`${userList}/${id}`, {
+    method: "DELETE",
+  }).then((res) => {
+    if (res.ok) {
+      document.querySelector(`.card[data-id='${id}']`).remove();
+      console.log("Usuario eliminado");
+    } else {
+      console.error("Error al eliminar el usuario");
+    }
+  });
+}
+
+function editUser(id, newName, newEmail) {
+  fetch(`${userList}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name: newName, email: newEmail }),
+  })
+    .then((res) => res.json())
+    .then((updatedUser) => {
+      const card = document.querySelector(`.card[data-id='${id}']`);
+      card.querySelector("h2").textContent = updatedUser.name;
+      card.querySelector("p").textContent = `Email: ${updatedUser.email}`;
+      console.log("Usuario actualizado:", updatedUser);
+    });
+}
+
+function getUsers() {
+  console.log("Fetching users...");
+  fetch(userList)
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((user) => {
+        createCard(user);
+      });
+    });
+}
+
+function createCard(user) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+  card.dataset.id = user.id;
+  card.innerHTML = `
+  <h2>${user.name}</h2>
+  <p>Email: ${user.email}</p>
+  <p>id: ${user.id}</p>
+`;
+  const buttons = document.createElement("div");
+  buttons.innerHTML = `
+<button id="editButton" class="editButton">Editar</button>
+<button id="deleteButton" class="deleteButton">Eliminar</button>
+`;
+  const deleteButtons = document.getElementById("deleteButton");
+  deleteButtons.addEventListener("click", function (e) {
+    const card = e.target.closest(".card");
+    const userId = card.dataset.id;
+    deleteUser(userId);
+  });
+  card.appendChild(buttons);
+  cards.appendChild(card);
+}
+
+function addUser(name, email) {
+  fetch(userList, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name: name, email: email }),
+  })
+    .then((res) => res.json())
+    .then((newUser) => {
+      createCard(newUser);
+      console.log("Usuario añadido:", newUser);
+    });
+}
+const createButton = document.getElementById("create-button");
+
+createButton.addEventListener("click", function (e) {
+  e.preventDefault();
+  const nameInput = document.getElementById("name-trip-input");
+  const emailInput = document.getElementById("email-trip-input");
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+
+  if (name && email) {
+    addUser(name, email);
+    nameInput.value = "";
+    emailInput.value = "";
+    document.getElementById("window-notice").style.display = "none";
+  } else {
+    alert("Por favor, completa todos los campos.");
+  }
+});
