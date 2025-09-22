@@ -142,6 +142,25 @@ function addUser(name, email) {
 const darkModeButton = document.getElementById("dark-mode");
 darkModeButton.addEventListener("click", function () {
   document.body.classList.toggle("dark-mode");
+  document.querySelector(".cards").classList.toggle("dark-mode");
+  document.querySelectorAll(".card").forEach((card) => {
+    card.classList.toggle("dark-mode");
+  });
+  document.querySelectorAll(".button").forEach((button) => {
+    button.classList.toggle("dark-mode");
+  });
+  document.querySelectorAll(".edit-button").forEach((button) => {
+    button.classList.toggle("dark-mode");
+  });
+  document.querySelectorAll(".delete-button").forEach((button) => {
+    button.classList.toggle("dark-mode");
+  });
+  document.querySelectorAll(".window-notice").forEach((modal) => {
+    modal.classList.toggle("dark-mode");
+  });
+  document.querySelectorAll(".content").forEach((content) => {
+    content.classList.toggle("dark-mode");
+  });
 });
 
 // Modo oscuro //

@@ -159,5 +159,26 @@ legend {
 /* modal */
 
 /* dark mode */
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode .card {
+  background-color: #1e1e1e;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .button,
+.dark-mode .edit-button,
+.dark-mode .delete-button {
+  background-color: #2b0133;
+}
+
+.dark-mode .button:hover,
+.dark-mode .edit-button:hover,
+.dark-mode .delete-button:hover {
+  background-color: #333333;
+}
 
 /* dark mode */
