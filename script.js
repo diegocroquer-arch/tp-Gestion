@@ -137,3 +137,11 @@ function addUser(name, email) {
       console.log("Usuario agregado:", newUser);
     });
 }
+// Modo oscuro /
+
+const darkModeButton = document.getElementById("dark-mode");
+darkModeButton.addEventListener("click", function () {
+  document.body.classList.toggle("dark-mode");
+});
+
+// Modo oscuro //
