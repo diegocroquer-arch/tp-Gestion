@@ -57,9 +57,11 @@ function getUsers() {
       });
     });
 }
+getUsers();
 
 function createCard(user) {
   const card = document.createElement("div");
+  console.log("Users fetched:", user);
   card.classList.add("card");
   card.dataset.id = user.id;
   card.innerHTML = `
@@ -67,35 +69,41 @@ function createCard(user) {
   <p>Email: ${user.email}</p>
   <p>id: ${user.id}</p>
 `;
-  const buttons = document.createElement("div");
-  buttons.innerHTML = `
-<button id="editButton" class="editButton">Editar</button>
-<button id="deleteButton" class="deleteButton">Eliminar</button>
-`;
-  const deleteButtons = document.getElementById("deleteButton");
+  const deleteButtons = document.createElement("button");
   deleteButtons.addEventListener("click", function (e) {
     const card = e.target.closest(".card");
     const userId = card.dataset.id;
     deleteUser(userId);
   });
-  card.appendChild(buttons);
+  deleteButtons.textContent = "Eliminar";
+  deleteButtons.classList.add("delete-button");
+  card.appendChild(deleteButtons);
+  cards.appendChild(card);
+
+  const editButton = document.createElement("button");
+  editButton.textContent = "Editar";
+  editButton.classList.add("edit-button");
+  editButton.addEventListener("click", function (e) {
+    const card = e.target.closest(".card");
+    const userId = card.dataset.id;
+    const newName = prompt(
+      "Ingrese el nuevo nombre:",
+      card.querySelector("h2").textContent
+    );
+    const newEmail = prompt(
+      "Ingrese el nuevo email:",
+      card.querySelector("p").textContent.replace("Email: ", "")
+    );
+    if (newName && newEmail) {
+      editUser(userId, newName, newEmail);
+    } else {
+      alert("Por favor, completa todos los campos.");
+    }
+  });
+  card.appendChild(editButton);
   cards.appendChild(card);
 }
 
-function addUser(name, email) {
-  fetch(userList, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ name: name, email: email }),
-  })
-    .then((res) => res.json())
-    .then((newUser) => {
-      createCard(newUser);
-      console.log("Usuario añadido:", newUser);
-    });
-}
 const createButton = document.getElementById("create-button");
 
 createButton.addEventListener("click", function (e) {
@@ -114,3 +122,18 @@ createButton.addEventListener("click", function (e) {
     alert("Por favor, completa todos los campos.");
   }
 });
+
+function addUser(name, email) {
+  fetch(userList, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name: name, email: email }),
+  })
+    .then((res) => res.json())
+    .then((newUser) => {
+      createCard(newUser);
+      console.log("Usuario agregado:", newUser);
+    });
+}
